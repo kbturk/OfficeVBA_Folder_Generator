@@ -1,3 +1,4 @@
+
 Option Explicit
 
 Public Const BaseDirectory As String = _
@@ -79,6 +80,8 @@ Sub Automate_MOC_Script()
     Dim output_dir As String
     user_inputs MOCname, MOCNumber
     
+    On Error GoTo ENDTHIS
+    
     If Not MakeMOCDir(MOCname, MOCNumber, output_dir) Then
         MsgBox "Error making the directory."
         Exit Sub
@@ -86,8 +89,12 @@ Sub Automate_MOC_Script()
     
     If Not MakeDoc(MOCname, MOCNumber, output_dir) Then
         MsgBox "Error making the word document."
+        Exit Sub
     End If
     
+    MsgBox "Complete!"
     
+ENDTHIS:
+   Application.ScreenUpdating = True
+   
 End Sub
-
